@@ -15,30 +15,32 @@ function getPreciseTextSize(targetId, debug) {
     var boundary = {
         x: {
             first: null,
-            last: null
+            last:  null
         },
         y: {
             first: null,
-            last: null
+            last:  null
         }
     };
 
-    var spacing = font.size;
-
     if(debug) {
+        var canvasTitle = document.createElement('h3');
+        canvasTitle.innerHTML = 'Canvas render:';
         element.parentNode.insertBefore(canvas, element.nextSibling);
+        element.parentNode.insertBefore(canvasTitle, element.nextSibling);
     }
 
     context.font = font.style + " " + font.weight + " " + font.size + "px " + font.family;
 
     var text = element.textContent;
     var textSize = context.measureText(text);
+    var spacing = font.size;
 
-    canvas.width  = context.canvas.width = textSize.width + spacing;
+    canvas.width  = context.canvas.width  = textSize.width + spacing;
     canvas.height = context.canvas.height = font.size + spacing;
 
     context.font = font.style + " " + font.weight + " " + font.size + "px " + font.family;
-    context.fillText(text, 0, font.size + spacing/2);
+    context.fillText(text, 0, font.size + spacing / 2);
 
     var data = context.getImageData(0, 0, canvas.width, canvas.height).data;
 
@@ -66,14 +68,14 @@ function getPreciseTextSize(targetId, debug) {
     }
 
     var size = {
-        width:  (boundary.x.last+1) - boundary.x.first,
-        height: (boundary.y.last+1) - boundary.y.first,
-        offset: boundary.x.first
-    }
+        width:          (boundary.x.last + 1) - boundary.x.first,
+        height:         (boundary.y.last + 1) - boundary.y.first,
+        initialKerning: boundary.x.first
+    };
 
     if(debug) {
-        element.innerHTML += '<pre>' + JSON.stringify(size, null, 4); + '</pre>'
+        element.innerHTML += '<h3>Returned values:</h3><pre>' + JSON.stringify(size, null, 4) + '</pre>';
     }
 
-    return size
+    return size;
 }
