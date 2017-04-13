@@ -26,7 +26,7 @@ function getPreciseTextSize(targetId, debug) {
     var spacing = font.size;
 
     if(debug) {
-        document.body.appendChild(c);
+        el.parentNode.insertBefore(c, el.nextSibling);
     }
 
     ct.font = font.style + " " + font.weight + " " + font.size + "px " + font.family;
@@ -34,11 +34,11 @@ function getPreciseTextSize(targetId, debug) {
     var text = el.textContent;
     var textSize = ct.measureText(text);
 
-    c.width  = ct.canvas.width = textSize.width + 2*spacing;
-    c.height = ct.canvas.height = font.size + 2*spacing;
+    c.width  = ct.canvas.width = textSize.width + spacing;
+    c.height = ct.canvas.height = font.size + spacing;
 
     ct.font = font.style + " " + font.weight + " " + font.size + "px " + font.family;
-    ct.fillText(text, 0, font.size + spacing);
+    ct.fillText(text, 0, font.size + spacing/2);
 
     var data = ct.getImageData(0, 0, c.width, c.height).data;
 
@@ -65,9 +65,15 @@ function getPreciseTextSize(targetId, debug) {
         }
     }
 
-    return {
+    var size = {
         width:  (size.x.last+1) - size.x.first,
         height: (size.y.last+1) - size.y.first,
         offset: size.x.first
     }
+
+    if(debug) {
+        el.innerHTML += '<pre>' + JSON.stringify(size, null, 4); + '</pre>'
+    }
+
+    return size
 }
