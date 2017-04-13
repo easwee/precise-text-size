@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link href="https://fonts.googleapis.com/css?family=Homemade+Apple|Inconsolata|Lobster|PT+Serif|Roboto" rel="stylesheet">
+    <script src="precise-text-size.js"></script>
+    <style>
+        body {
+            margin:0;
+            padding: 30px;
+            font-size: 100px;
+            font-family: sans-serif;
+            white: green;
+        }
+
+        h2 {
+            padding: 10px 0;
+            font-size: 20px;
+            border-top: 2px dashed black;
+        }
+
+        pre {
+            padding: 5px;
+            background: white;
+            font-size: 10px;
+            background: #f1f1f1;
+        }
+
+        #test1 {
+            font-family: 'PT Serif', serif;
+        }
+        #test2{
+            font-family: 'Roboto', sans-serif;
+        }
+        #test3 {
+            font-family: 'Lobster', cursive;
+        }
+        #test4 {
+            font-family: 'Homemade Apple', cursive;
+        }
+        #test5 {
+           font-family: 'Inconsolata', monospace;
+        }
+
+
+        div {
+            white-space: nowrap;
+            font-weight: normal;
+            overflow: hidden;
+        }
+
+        canvas {
+            background: white;
+            box-shadow:  0 0 5px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <h2>Serif</h2>
+    <div id="test1">This is a test</div>
+    <h2>Sans-Serif</h2>
+    <div id="test2">This is a test</div>
+    <h2>Display</h2>
+    <div id="test3">This is a test</div>
+    <h2>handwriting</h2>
+    <div id="test4">This is a test</div>
+    <h2>Monospace</h2>
+    <div id="test5">This is a test</div>
+    <script>
+        function insertAfter(newNode, referenceNode) {
+            referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+        }
+        window.onload = function() {
+            getPreciseTextSize('test1', true);
+            getPreciseTextSize('test2', true);
+            getPreciseTextSize('test3', true);
+            getPreciseTextSize('test4', true);
+            getPreciseTextSize('test5', true);
+        }
+    </script>
+</body>
+</html>
