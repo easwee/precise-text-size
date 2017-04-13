@@ -1,9 +1,9 @@
 function getPreciseTextSize(targetId, debug) {
     var debug = debug || false;
-    var el = document.getElementById(targetId);
-    var style = window.getComputedStyle(el);
-    var c = document.createElement("canvas");
-    var ct = c.getContext("2d");
+    var element = document.getElementById(targetId);
+    var style = window.getComputedStyle(element);
+    var canvas = document.createElement("canvas");
+    var context = canvas.getContext("2d");
 
     var font = {
         size:   parseInt(style.fontSize),
@@ -12,7 +12,7 @@ function getPreciseTextSize(targetId, debug) {
         style:  style.fontStyle
     };
 
-    var size = {
+    var boundary = {
         x: {
             first: null,
             last: null
@@ -26,53 +26,53 @@ function getPreciseTextSize(targetId, debug) {
     var spacing = font.size;
 
     if(debug) {
-        el.parentNode.insertBefore(c, el.nextSibling);
+        element.parentNode.insertBefore(canvas, element.nextSibling);
     }
 
-    ct.font = font.style + " " + font.weight + " " + font.size + "px " + font.family;
+    context.font = font.style + " " + font.weight + " " + font.size + "px " + font.family;
 
-    var text = el.textContent;
-    var textSize = ct.measureText(text);
+    var text = element.textContent;
+    var textSize = context.measureText(text);
 
-    c.width  = ct.canvas.width = textSize.width + spacing;
-    c.height = ct.canvas.height = font.size + spacing;
+    canvas.width  = context.canvas.width = textSize.width + spacing;
+    canvas.height = context.canvas.height = font.size + spacing;
 
-    ct.font = font.style + " " + font.weight + " " + font.size + "px " + font.family;
-    ct.fillText(text, 0, font.size + spacing/2);
+    context.font = font.style + " " + font.weight + " " + font.size + "px " + font.family;
+    context.fillText(text, 0, font.size + spacing/2);
 
-    var data = ct.getImageData(0, 0, c.width, c.height).data;
+    var data = context.getImageData(0, 0, canvas.width, canvas.height).data;
 
-    for (var x = 0; x < c.width; x++) {
-        for (var y = 0; y < c.height; y++) {
-            var index = (x + (c.width * y)) * 4;
+    for (var x = 0; x < canvas.width; x++) {
+        for (var y = 0; y < canvas.height; y++) {
+            var index = (x + (canvas.width * y)) * 4;
 
             if(data[index+3] > 0) {
 
-                if(size.y.first === null || y < size.y.first) {
-                    size.y.first = y;
+                if(boundary.y.first === null || y < boundary.y.first) {
+                    boundary.y.first = y;
                 }
 
-                if(size.x.first === null) {
-                    size.x.first = x ;
+                if(boundary.x.first === null) {
+                    boundary.x.first = x ;
                 }
 
-                size.x.last = x;
+                boundary.x.last = x;
 
-                if(size.y.last < y) {
-                    size.y.last = y;
+                if(boundary.y.last < y) {
+                    boundary.y.last = y;
                 }
             }
         }
     }
 
     var size = {
-        width:  (size.x.last+1) - size.x.first,
-        height: (size.y.last+1) - size.y.first,
-        offset: size.x.first
+        width:  (boundary.x.last+1) - boundary.x.first,
+        height: (boundary.y.last+1) - boundary.y.first,
+        offset: boundary.x.first
     }
 
     if(debug) {
-        el.innerHTML += '<pre>' + JSON.stringify(size, null, 4); + '</pre>'
+        element.innerHTML += '<pre>' + JSON.stringify(size, null, 4); + '</pre>'
     }
 
     return size
