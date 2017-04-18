@@ -1,0 +1,22 @@
+{
+  "name": "precise-text-size",
+  "version": "1.0.0",
+  "description": "Get precise text width and height from first to last non-empty pixel.",
+  "repository": "https://github.com/easwee/precise-text-size.git",
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "scripts": {
+    
+  },
+  "devDependencies": {
+    
+  },
+  "keywords": [
+    "precise",
+    "text",
+    "width",
+    "height",
+    "pixel",
+    "perfect"
+  ]
+}
