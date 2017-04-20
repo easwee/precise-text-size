@@ -3,7 +3,7 @@
 <head>
     <title></title>
     <link href="https://fonts.googleapis.com/css?family=Homemade+Apple|Inconsolata|Lobster|PT+Serif|Roboto" rel="stylesheet">
-    <script src="precise-text-size.js"></script>
+    <script src="../lib/index.js"></script>
     <style>
         body {
             margin:0;
@@ -45,6 +45,8 @@
 
         #test1 {
             font-family: 'PT Serif', serif;
+            font-size: 50px;
+            font-weight: 700;
         }
 
         #test2 {
@@ -82,11 +84,13 @@
     <div id="test5">This is a test</div>
     <script>
         window.onload = function() {
-            getPreciseTextSize('test1', true);
-            getPreciseTextSize('test2', true);
-            getPreciseTextSize('test3', true);
-            getPreciseTextSize('test4', true);
-            getPreciseTextSize('test5', true);
+            
+            console.log(getPreciseTextSize(document.getElementById('test1')));
+            console.log(getPreciseTextSize(document.getElementById('test2')));
+            console.log(getPreciseTextSize(document.getElementById('test3')));
+            console.log(getPreciseTextSize(document.getElementById('test4')));
+            console.log(getPreciseTextSize(document.getElementById('test5')));
+
         }
     </script>
 </body>
