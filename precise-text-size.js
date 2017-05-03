@@ -73,11 +73,3 @@ function getPreciseTextSize(element) {
 
     return size;
 }
-
-/**
- * Export `getPreciseTextSize`.
- *
- * @type {Function}
- */
-
-//module.exports = getPreciseTextSize
